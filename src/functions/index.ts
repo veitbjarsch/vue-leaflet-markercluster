@@ -1,1 +1,1 @@
-export * as MarkerClusterGroup from './MarkerClusterGroup.js'
+export * as MarkerClusterGroup from './markerClusterGroup'

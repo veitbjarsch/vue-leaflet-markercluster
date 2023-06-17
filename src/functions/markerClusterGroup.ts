@@ -1,7 +1,9 @@
-import { Functions } from '@vue-leaflet/vue-leaflet'
-import { propsToLeafletOptions } from '@/utils'
+import type Leaflet from 'leaflet'
+
+import { Functions, Utilities } from '@vue-leaflet/vue-leaflet'
 
 const { featureGroupProps, setupFeatureGroup } = Functions.FeatureGroup
+const { propsToLeafletOptions } = Utilities
 
 export const markerClusterGroupProps = {
   ...featureGroupProps,
@@ -127,16 +129,20 @@ export const markerClusterGroupProps = {
     type: Object,
     default: () => ({})
   }
-}
+} as const
 
-export const setupMarkerClusterGroup = (props, leafletRef, context) => {
+export const setupMarkerClusterGroup = (props: Object, leafletRef: Object, context: Object) => {
   const { options: featureOptions, methods: featureGroupMethods } = setupFeatureGroup(
     props,
     leafletRef,
     context
   )
 
-  const options = propsToLeafletOptions(props, markerClusterGroupProps, featureOptions)
+  const options = propsToLeafletOptions<L.InteractiveLayerOptions>(
+    props,
+    markerClusterGroupProps,
+    featureOptions
+  )
 
   const methods = {
     ...featureGroupMethods

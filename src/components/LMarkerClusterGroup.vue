@@ -1,30 +1,33 @@
-<script>
-import { ref, markRaw, onMounted, inject, nextTick } from 'vue'
+<script lang="ts">
+import type Leaflet from 'leaflet'
+import { ref, markRaw, onMounted, nextTick } from 'vue'
 import 'leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import { InjectionKeys, Functions } from '@vue-leaflet/vue-leaflet'
-import { remapEvents, propsBinder } from '@/utils'
+import { InjectionKeys, Functions, Utilities } from '@vue-leaflet/vue-leaflet'
 
 import { markerClusterGroupProps, setupMarkerClusterGroup } from '@/functions/markerClusterGroup'
 
+const { remapEvents, propsBinder, assertInject } = Utilities
 const { AddLayerInjection } = InjectionKeys
 const { render } = Functions.Layer
 
 export default {
   props: markerClusterGroupProps,
   setup(props, context) {
-    const leafletObject = ref()
+    const leafletObject = ref<Leaflet.MarkerClusterGroup>()
     const ready = ref(false)
 
-    const addLayer = inject(AddLayerInjection)
+    const addLayer = assertInject(AddLayerInjection)
 
     const { methods, options } = setupMarkerClusterGroup(props, leafletObject, context)
 
     onMounted(async () => {
-      leafletObject.value = markRaw(L.markerClusterGroup(undefined, options))
+      // @ts-ignore markerClusterGroup relies on a global L
+      const { markerClusterGroup } = L
+      leafletObject.value = markRaw(markerClusterGroup(options))
 
-      const listeners = remapEvents(context.attrs)
+      const { listeners } = remapEvents(context.attrs)
       leafletObject.value.on(listeners)
 
       propsBinder(methods, leafletObject.value, props)
