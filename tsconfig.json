@@ -1,9 +1,21 @@
 {
   "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "allowJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
     },
+    "types": [
+      "node",
+    ],
+    "outDir": "./dist",
+    "noImplicitAny": false
+  },
+  "references": [
     {
       "path": "./tsconfig.app.json"
     },

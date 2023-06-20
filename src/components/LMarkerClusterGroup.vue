@@ -1,5 +1,5 @@
 <script lang="ts">
-import type Leaflet from 'leaflet'
+import type { MarkerClusterGroup } from 'leaflet'
 import { ref, markRaw, onMounted, nextTick } from 'vue'
 import 'leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
@@ -15,7 +15,7 @@ const { render } = Functions.Layer
 export default {
   props: markerClusterGroupProps,
   setup(props, context) {
-    const leafletObject = ref<Leaflet.MarkerClusterGroup>()
+    const leafletObject = ref<MarkerClusterGroup>()
     const ready = ref(false)
 
     const addLayer = assertInject(AddLayerInjection)

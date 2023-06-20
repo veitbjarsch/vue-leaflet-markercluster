@@ -1,5 +1,3 @@
-import type Leaflet from 'leaflet'
-
 import { Functions, Utilities } from '@vue-leaflet/vue-leaflet'
 
 const { featureGroupProps, setupFeatureGroup } = Functions.FeatureGroup
