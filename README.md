@@ -2,7 +2,7 @@
 
 This is an extension of the [vue-leaflet](https://github.com/vue-leaflet/vue-leaflet) package, which adds the functionality of using the leaflet [markerculster](https://github.com/Leaflet/Leaflet.markercluster) in an intuitive simple style.
 
-:warning: This package is currently an alpha version. Breaking changes in upcoming minor versions are high likely :warning:
+:warning: This package is currently an alpha version. Breaking changes in upcoming minor versions are high likely! :warning:
 
 ## Prerequirements
 
