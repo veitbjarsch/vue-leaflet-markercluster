@@ -6,18 +6,20 @@ This is an extension of the [vue-leaflet](https://github.com/vue-leaflet/vue-lea
 
 ## Prerequirements
 
-- [leaflet](https://github.com/Leaflet/Leaflet) (v 1.9.4 or higher)
-- [@vue-leaflet/vue-leaflet](https://github.com/vue-leaflet/vue-leaflet) (v 0.10.1 or higher)
+- [leaflet](https://github.com/Leaflet/Leaflet) (v1.9.4 or higher)
+- [@vue-leaflet/vue-leaflet](https://github.com/vue-leaflet/vue-leaflet) (v0.10.1 or higher)
 
 ## Installation
 
 ```
-yarn add veitbjarsch/vue-leaflet-markercluster
+yarn add vue-leaflet-markercluster
 ```
 
 or
 
-npm i -D veitbjarsch/vue-leaflet-markercluster
+```
+npm i -D vue-leaflet-markercluster
+```
 
 ## Usage
 
