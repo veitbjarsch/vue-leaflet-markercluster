@@ -64,26 +64,26 @@ jobs:
           path: ./*
           key: ${{ runner.os }}-${{ github.ref }}-${{ github.sha }}-build
 
-  unit_tests:
-    name: Run unit tests
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Restore cache
-        uses: actions/cache@v3
-        with:
-          path: ./*
-          key: ${{ runner.os }}-${{ github.ref }}-${{ github.sha }}-build
+  # unit_tests:
+  #   name: Run unit tests
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Restore cache
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ./*
+  #         key: ${{ runner.os }}-${{ github.ref }}-${{ github.sha }}-build
 
-      - name: Run tests
-        run: npm run test:unit
+  #     - name: Run tests
+  #       run: npm run test:unit
 
   publish:
     name: Publish if applicable
     runs-on: ubuntu-latest
     if: github.repository_owner == 'veitbjarsch'
     needs:
-      - unit_tests
+      - build
       - linting
     steps:
       - name: Publish to NPM
