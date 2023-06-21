@@ -77,22 +77,3 @@ jobs:
 
   #     - name: Run tests
   #       run: npm run test:unit
-
-  publish:
-    name: Publish if applicable
-    runs-on: ubuntu-latest
-    if: github.repository_owner == 'veitbjarsch'
-    needs:
-      - build
-      - linting
-    steps:
-      - name: Restore cache
-        uses: actions/cache@v3
-        with:
-          path: ./*
-          key: ${{ runner.os }}-${{ github.ref }}-${{ github.sha }}-build
-
-      - name: Publish to NPM
-        uses: JS-DevTools/npm-publish@v2
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
