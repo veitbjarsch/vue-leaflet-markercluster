@@ -1,6 +1,3 @@
-import L from 'leaflet'
-globalThis.L = L
-
 import { createApp } from 'vue'
 
 import App from './App.vue'
