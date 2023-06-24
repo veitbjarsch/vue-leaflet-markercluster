@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## Fixed
+### Fixed
 
 - readme quickstart section now contains the registration of the global L
 - readme quickstart now shows the correct path to the style.css file
