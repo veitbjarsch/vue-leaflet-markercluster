@@ -6,37 +6,74 @@ const { propsToLeafletOptions } = Utilities
 export const markerClusterGroupProps = {
   ...featureGroupProps,
   /**
-   * A cluster will cover at most this many pixels from its center
+   * The maximum radius that a cluster will cover from the central
+   * marker (in pixels). Default 80. Decreasing will make more,
+   * smaller clusters. You can also use a function that accepts the
+   * current map zoom and returns the maximum cluster radius in pixels.
    **/
   maxClusterRadius: {
     type: Number,
     default: 80
   },
-  // clusterPane: {
-  //   type: Object,
-  // },
+  /**
+   * Map pane where the cluster icons will be added.
+   * Defaults to L.Marker's default (currently 'markerPane').
+   */
+  clusterPane: {
+    type: String,
+    default: 'markerPane'
+  },
+  /**
+   * Allows clicking a cluster to spiderfy it at any zoom level,
+   * not just the maximum.
+   */
   spiderfyOnEveryZoom: {
     type: Boolean,
     default: false
   },
+  /**
+   * When you click a cluster at the bottom zoom level we spiderfy it
+   * so you can see all of its markers. (Note: the spiderfy occurs at
+   * the current zoom level if all items within the cluster are still
+   * clustered at the maximum zoom level or at zoom specified by
+   * disableClusteringAtZoom option).
+   */
   spiderfyOnMaxZoom: {
     type: Boolean,
     default: true
   },
+  /**
+   * When you mouse over a cluster it shows the bounds of its markers.
+   */
   showCoverageOnHover: {
     type: Boolean,
     default: true
   },
+  /**
+   * When you click a cluster we zoom to its bounds.
+   */
   zoomToBoundsOnClick: {
     type: Boolean,
     default: true
   },
+  /**
+   * If set to true, overrides the icon for all added markers to make
+   * them appear as a 1 size cluster. Note: the markers are not replaced
+   * by cluster objects, only their icon is replaced. Hence they still
+   * react to normal events, and option disableClusteringAtZoom does
+   * not restore their previous icon.
+   */
   singleMarkerMode: {
     type: Boolean,
     default: false
   },
+  /**
+   * If set, at this zoom level and below, markers will not be clustered.
+   * This defaults to disabled. See Example. Note: you may be interested
+   * in disabling spiderfyOnMaxZoom option when using.
+   */
   disableClusteringAtZoom: {
-    type: Boolean,
+    type: Number,
     default: null
   },
   /**
@@ -58,9 +95,11 @@ export const markerClusterGroupProps = {
     default: true
   },
   /**
-   * Whether to animate adding markers after adding the MarkerClusterGroup
-   * to the map. If you are adding individual markers set to true, if
-   * adding bulk markers leave false for massive performance gains.
+   * If set to true (and animate option is also true) then adding individual
+   * markers to the MarkerClusterGroup after it has been added to the map
+   * will add the marker and animate it into the cluster. Defaults to false
+   * as this gives better performance when bulk adding markers. addLayers
+   * does not support this, only addLayer with individual Markers.
    */
   animateAddingMarkers: {
     type: Boolean,
@@ -68,52 +107,55 @@ export const markerClusterGroupProps = {
   },
   /**
    * Make it possible to provide custom function to calculate spiderfy
-   * shape positions
+   * shape positions "function(count, centerPt) { ... }"
    */
   spiderfyShapePositions: {
     type: Function,
     default: null
   },
   /**
-   * Increase to increase the distance away that spiderfied markers
-   * appear from the center
+   * Increase from 1 to increase the distance away from the center that
+   * spiderfied markers are placed. Use if you are using big marker icons.
    */
   spiderfyDistanceMultiplier: {
     type: Number,
     default: 1
   },
   /**
-   * Make it possible to specify a polyline options on a spider leg
+   * Allows you to specify PolylineOptions to style spider legs.
+   * By default, they are { weight: 1.5, color: '#222', opacity: 0.5 }
    */
   spiderLegPolylineOptions: {
     type: Object,
     default: () => ({ weight: 1.5, color: '#222', opacity: 0.5 })
   },
   /**
-   * When bulk adding layers, adds markers in chunks. Means addLayers may not
-   * add all the layers in the call, others will be loaded during setTimeouts
+   * Boolean to split the addLayers processing in to small intervals
+   * so that the page does not freeze.
    */
   chunkedLoading: {
     type: Boolean,
     default: false
   },
   /**
-   * process markers for a maximum of ~ n milliseconds
-   * (then trigger the chunkProgress callback)
+   * Time interval (in ms) during which addLayers works before pausing to
+   * let the rest of the page process. In particular, this prevents the page
+   * from freezing while adding a lot of markers.
    */
   chunkInterval: {
     type: Number,
     default: 200
   },
   /**
-   * at the end of each interval, give n milliseconds back to system/browser
+   * Time delay (in ms) between consecutive periods of
+   * processing for addLayers. Default to 50ms.
    */
   chunkDelay: {
     type: Number,
     default: 50
   },
   /**
-   * progress callback: function(processed, total, elapsed)
+   * progress callback: "function(processed, total, elapsed)"
    * (e.g. for a progress indicator)
    */
   chunkProgress: {
@@ -121,7 +163,8 @@ export const markerClusterGroupProps = {
     default: null
   },
   /**
-   * Options to pass to the L.Polygon constructor
+   * Options to pass when creating the L.Polygon(points, options)
+   * to show the bounds of a cluster.
    */
   polygonOptions: {
     type: Object,
