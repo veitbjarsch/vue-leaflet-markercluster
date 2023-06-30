@@ -103,7 +103,7 @@ export const markerClusterGroupProps = {
    */
   animateAddingMarkers: {
     type: Boolean,
-    default: true
+    default: false
   },
   /**
    * Make it possible to provide custom function to calculate spiderfy
