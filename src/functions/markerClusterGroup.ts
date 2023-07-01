@@ -1,6 +1,12 @@
-import { Functions, Utilities } from '@vue-leaflet/vue-leaflet'
+import type { Ref } from 'vue'
+import type { MarkerClusterGroup } from 'leaflet'
+
+import { provide } from 'vue'
+import { Functions, Utilities, InjectionKeys } from '@vue-leaflet/vue-leaflet'
+import { debounce } from './utils'
 
 const { featureGroupProps, setupFeatureGroup } = Functions.FeatureGroup
+const { AddLayerInjection, RemoveLayerInjection } = InjectionKeys
 const { propsToLeafletOptions } = Utilities
 
 export const markerClusterGroupProps = {
@@ -172,7 +178,11 @@ export const markerClusterGroupProps = {
   }
 } as const
 
-export const setupMarkerClusterGroup = (props: Object, leafletRef: Object, context: Object) => {
+export const setupMarkerClusterGroup = (
+  props: Object,
+  leafletRef: Ref<MarkerClusterGroup | undefined>,
+  context: Object
+) => {
   const { options: featureOptions, methods: featureGroupMethods } = setupFeatureGroup(
     props,
     leafletRef,
@@ -185,9 +195,40 @@ export const setupMarkerClusterGroup = (props: Object, leafletRef: Object, conte
     featureOptions
   )
 
+  let layersToAdd = [] as Array<any>
+  const _addLayers = debounce(() => {
+    if (layersToAdd.length === 1) {
+      leafletRef.value?.addLayer(layersToAdd[0])
+    } else {
+      leafletRef.value?.addLayers(layersToAdd)
+    }
+    layersToAdd = []
+  }, 0)
+
+  let layersToRemove = [] as Array<any>
+  const _removeLayers = debounce(() => {
+    if (layersToRemove.length === 1) {
+      leafletRef.value?.removeLayer(layersToRemove[0])
+    } else {
+      leafletRef.value?.removeLayers(layersToRemove)
+    }
+    layersToRemove = []
+  }, 0)
+
   const methods = {
-    ...featureGroupMethods
+    ...featureGroupMethods,
+    addLayer(layer: any) {
+      layersToAdd.push(layer.leafletObject)
+      _addLayers()
+    },
+    removeLayer(layer: any) {
+      layersToRemove.push(layer.leafletObject)
+      _removeLayers()
+    }
   }
+
+  provide(AddLayerInjection, methods.addLayer)
+  provide(RemoveLayerInjection, methods.removeLayer)
 
   return { options, methods }
 }
