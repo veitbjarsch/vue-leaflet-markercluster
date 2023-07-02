@@ -22,7 +22,7 @@ import L from 'leaflet'
 globalThis.L = L
 
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet'
-import LMarkerClusterGroup from '@/components/LMarkerClusterGroup.vue'
+import { LMarkerClusterGroup } from '../../components/index'
 
 import 'leaflet/dist/leaflet.css'
 

@@ -18,17 +18,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import L from 'leaflet'
 globalThis.L = L
 
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet'
-import LMarkerClusterGroup from '@/components/LMarkerClusterGroup.vue'
+import { LMarkerClusterGroup } from '../../components/index'
 import { addressPoints } from './MarkerDemo.10000'
 
 import 'leaflet/dist/leaflet.css'
-
-const test = ref(true)
-
-setTimeout(() => (test.value = false), 5000)
 </script>
