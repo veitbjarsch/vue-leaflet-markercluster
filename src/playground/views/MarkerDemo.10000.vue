@@ -18,12 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import L from 'leaflet'
-globalThis.L = L
-
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet'
 import { LMarkerClusterGroup } from '../../components/index'
 import { addressPoints } from './MarkerDemo.10000'
-
-import 'leaflet/dist/leaflet.css'
 </script>

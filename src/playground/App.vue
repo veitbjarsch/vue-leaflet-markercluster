@@ -9,8 +9,11 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-export default {}
+<script setup lang="ts">
+import L from 'leaflet'
+globalThis.L = L
+
+import 'leaflet/dist/leaflet.css'
 </script>
 
 <style>
