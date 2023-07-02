@@ -6,11 +6,11 @@
         layer-type="base"
         name="OpenStreetMap"
       />
-      <l-marker-cluster-group>
+      <l-marker-cluster-group :chunked-loading="true">
         <l-marker
           v-for="address in addressPoints"
           :key="address[2]"
-          :lat-lng="[address[0] as number, address[1] as number]"
+          :lat-lng="[address[0], address[1]]"
         />
       </l-marker-cluster-group>
     </l-map>
@@ -24,7 +24,7 @@ globalThis.L = L
 
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet'
 import LMarkerClusterGroup from '@/components/LMarkerClusterGroup.vue'
-import { addressPoints } from './MarkerDemo.10000.js'
+import { addressPoints } from './MarkerDemo.10000'
 
 import 'leaflet/dist/leaflet.css'
 

@@ -1,5 +1,6 @@
-import type { Ref } from 'vue'
-import type { MarkerClusterGroup } from 'leaflet'
+import type { Ref, SetupContext, ExtractPropTypes } from 'vue'
+import type { MarkerClusterGroup, Layer } from 'leaflet'
+import type { ILayerDefinition } from '@vue-leaflet/vue-leaflet/dist/src/types/interfaces/ILayerDefinition.d.ts'
 
 import { provide } from 'vue'
 import { Functions, Utilities, InjectionKeys } from '@vue-leaflet/vue-leaflet'
@@ -179,9 +180,9 @@ export const markerClusterGroupProps = {
 } as const
 
 export const setupMarkerClusterGroup = (
-  props: Object,
+  props: ExtractPropTypes<typeof markerClusterGroupProps>,
   leafletRef: Ref<MarkerClusterGroup | undefined>,
-  context: Object
+  context: SetupContext
 ) => {
   const { options: featureOptions, methods: featureGroupMethods } = setupFeatureGroup(
     props,
@@ -217,11 +218,19 @@ export const setupMarkerClusterGroup = (
 
   const methods = {
     ...featureGroupMethods,
-    addLayer(layer: any) {
+    addLayer(layer: ILayerDefinition<Layer>) {
+      if (props.animateAddingMarkers) {
+        return leafletRef.value?.addLayer(layer.leafletObject)
+      }
+
       layersToAdd.push(layer.leafletObject)
       _addLayers()
     },
-    removeLayer(layer: any) {
+    removeLayer(layer: ILayerDefinition<Layer>) {
+      if (props.animateAddingMarkers) {
+        return leafletRef.value?.removeLayer(layer.leafletObject)
+      }
+
       layersToRemove.push(layer.leafletObject)
       _removeLayers()
     }
