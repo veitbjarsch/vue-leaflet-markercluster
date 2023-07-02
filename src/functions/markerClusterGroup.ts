@@ -85,7 +85,7 @@ export const markerClusterGroupProps = {
   },
   /**
    * Setting this to false prevents the removal of any clusters
-   * outside of the viewpoint, which is the default behaviour
+   * outside of the viewpoint, which is the default behavior
    * for performance reasons.
    */
   removeOutsideVisibleBounds: {
