@@ -8,7 +8,7 @@ import { InjectionKeys, Functions, Utilities } from '@vue-leaflet/vue-leaflet'
 
 import { markerClusterGroupProps, setupMarkerClusterGroup } from '@/functions/markerClusterGroup'
 
-const { remapEvents, propsBinder, assertInject } = Utilities
+const { remapEvents, propsBinder, assertInject, WINDOW_OR_GLOBAL } = Utilities
 const { AddLayerInjection } = InjectionKeys
 const { render } = Functions.Layer
 
@@ -23,8 +23,7 @@ export default {
     const { methods, options } = setupMarkerClusterGroup(props, leafletObject, context)
 
     onMounted(async () => {
-      // @ts-ignore markerClusterGroup relies on a global L
-      const { markerClusterGroup } = L
+      const { markerClusterGroup } = WINDOW_OR_GLOBAL.L
       leafletObject.value = markRaw(markerClusterGroup(options))
 
       const { listeners } = remapEvents(context.attrs)
