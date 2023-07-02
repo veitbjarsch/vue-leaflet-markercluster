@@ -2,7 +2,7 @@
 
 :warning: This package is currently an alpha version. Breaking changes in upcoming minor versions are high likely! :warning:
 
-This is an extension of the [vue-leaflet](https://github.com/vue-leaflet/vue-leaflet) package, which adds the functionality of using the leaflet [markerculster](https://github.com/Leaflet/Leaflet.markercluster) in an intuitive simple style.
+This is an extension of the [vue-leaflet](https://github.com/vue-leaflet/vue-leaflet) package, which adds the functionality of using the leaflet [markercluster](https://github.com/Leaflet/Leaflet.markercluster) in an intuitive simple style.
 
 :information_source: The plugin works quite well for a small to medium numbers of markers. If you plan to use 10.000 markers or more at once, I would recommend you to use the leaflet.markercluster addLayers function directly.
 
@@ -62,7 +62,7 @@ import 'vue-leaflet-markercluster/dist/style.css'
 
 ## Component playground
 
-To see the component playground in action, clone this repo and run the local devserver, then visit http://127.0.0.1:5173,
+To see the component playground in action, clone this repo and run the local dev server, then visit http://127.0.0.1:5173,
 
 ```
 git clone https://github.com/veitbjarsch/vue-leaflet-markercluster.git
@@ -73,4 +73,4 @@ npm run dev
 
 ## Server-side rendering (SSR)
 
-Note, while it is possible to enable SSR using `@vue-leaflet/vue-leaflet`. We can't use the SSR capability with `vue-leaflet-markercluster`. The reason here is that the leaflet.markercluster relies on the global L ([read here](https://github.com/Leaflet/Leaflet.markercluster/issues/874) for more infomation), so we can't use the Leaflet ESM, which is crucial for the SSR support.
+Note, while it is possible to enable SSR using `@vue-leaflet/vue-leaflet`. We can't use the SSR capability with `vue-leaflet-markercluster`. The reason here is that the leaflet.markercluster relies on the global L ([read here](https://github.com/Leaflet/Leaflet.markercluster/issues/874) for more information), so we can't use the Leaflet ESM, which is crucial for the SSR support.
