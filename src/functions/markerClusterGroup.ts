@@ -1,6 +1,13 @@
-import { Functions, Utilities } from '@vue-leaflet/vue-leaflet'
+import type { Ref, SetupContext, ExtractPropTypes } from 'vue'
+import type { MarkerClusterGroup, Layer } from 'leaflet'
+import type { ILayerDefinition } from '@vue-leaflet/vue-leaflet/dist/src/types/interfaces/ILayerDefinition.d.ts'
+
+import { provide } from 'vue'
+import { Functions, Utilities, InjectionKeys } from '@vue-leaflet/vue-leaflet'
+import { debounce } from './utils'
 
 const { featureGroupProps, setupFeatureGroup } = Functions.FeatureGroup
+const { AddLayerInjection, RemoveLayerInjection } = InjectionKeys
 const { propsToLeafletOptions } = Utilities
 
 export const markerClusterGroupProps = {
@@ -172,7 +179,11 @@ export const markerClusterGroupProps = {
   }
 } as const
 
-export const setupMarkerClusterGroup = (props: Object, leafletRef: Object, context: Object) => {
+export const setupMarkerClusterGroup = (
+  props: ExtractPropTypes<typeof markerClusterGroupProps>,
+  leafletRef: Ref<MarkerClusterGroup | undefined>,
+  context: SetupContext
+) => {
   const { options: featureOptions, methods: featureGroupMethods } = setupFeatureGroup(
     props,
     leafletRef,
@@ -185,9 +196,48 @@ export const setupMarkerClusterGroup = (props: Object, leafletRef: Object, conte
     featureOptions
   )
 
+  let layersToAdd = [] as Array<any>
+  const _addLayers = debounce(() => {
+    if (layersToAdd.length === 1) {
+      leafletRef.value?.addLayer(layersToAdd[0])
+    } else {
+      leafletRef.value?.addLayers(layersToAdd)
+    }
+    layersToAdd = []
+  }, 0)
+
+  let layersToRemove = [] as Array<any>
+  const _removeLayers = debounce(() => {
+    if (layersToRemove.length === 1) {
+      leafletRef.value?.removeLayer(layersToRemove[0])
+    } else {
+      leafletRef.value?.removeLayers(layersToRemove)
+    }
+    layersToRemove = []
+  }, 0)
+
   const methods = {
-    ...featureGroupMethods
+    ...featureGroupMethods,
+    addLayer(layer: ILayerDefinition<Layer>) {
+      if (props.animateAddingMarkers) {
+        return leafletRef.value?.addLayer(layer.leafletObject)
+      }
+
+      layersToAdd.push(layer.leafletObject)
+      _addLayers()
+    },
+    removeLayer(layer: ILayerDefinition<Layer>) {
+      if (props.animateAddingMarkers) {
+        return leafletRef.value?.removeLayer(layer.leafletObject)
+      }
+
+      layersToRemove.push(layer.leafletObject)
+      _removeLayers()
+    }
   }
+
+  provide(AddLayerInjection, methods.addLayer)
+  provide(RemoveLayerInjection, methods.removeLayer)
 
   return { options, methods }
 }
