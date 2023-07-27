@@ -1,14 +1,39 @@
 import type { Ref, SetupContext, ExtractPropTypes } from 'vue'
-import type { MarkerClusterGroup, Layer } from 'leaflet'
+import type { MarkerClusterGroup, LeafletEventHandlerFnMap, Layer } from 'leaflet'
 import type { ILayerDefinition } from '@vue-leaflet/vue-leaflet/dist/src/types/interfaces/ILayerDefinition.d.ts'
 
 import { provide } from 'vue'
 import { Functions, Utilities, InjectionKeys } from '@vue-leaflet/vue-leaflet'
 import { debounce } from './utils'
 
+type MissingEventHandlerKeys = 'clustermouseover' | 'clustermouseout' | 'clusterclick'
+export type LeafletEventKeys = Array<keyof LeafletEventHandlerFnMap | MissingEventHandlerKeys>
+
 const { featureGroupProps, setupFeatureGroup } = Functions.FeatureGroup
 const { AddLayerInjection, RemoveLayerInjection } = InjectionKeys
 const { propsToLeafletOptions } = Utilities
+
+const featureGroupEvents = [
+  'layeradd',
+  'layerremove',
+  'click',
+  'dblclick',
+  'mousedown',
+  'mouseup',
+  'mouseover',
+  'mouseout',
+  'contextmenu'
+] as const
+
+export const markerClusterGroupEvents: LeafletEventKeys = [
+  ...featureGroupEvents,
+  'clusterclick',
+  'clustermouseover',
+  'clustermouseout',
+  'animationend',
+  'spiderfied',
+  'unspiderfied'
+]
 
 export const markerClusterGroupProps = {
   ...featureGroupProps,
