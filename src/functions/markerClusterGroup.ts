@@ -1,5 +1,5 @@
 import type { Ref, SetupContext, ExtractPropTypes } from 'vue'
-import type { MarkerClusterGroup, LeafletEventHandlerFnMap, Layer } from 'leaflet'
+import type { MarkerClusterGroup, Layer } from 'leaflet'
 import type { ILayerDefinition } from '@vue-leaflet/vue-leaflet/dist/src/types/interfaces/ILayerDefinition.d.ts'
 import type { LeafletEventKeys } from '@/types/eventKeys'
 import { provide } from 'vue'

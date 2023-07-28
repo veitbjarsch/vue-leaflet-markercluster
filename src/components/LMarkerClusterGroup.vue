@@ -6,7 +6,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import { InjectionKeys, Functions, Utilities } from '@vue-leaflet/vue-leaflet'
 
-import type { LeafletEventKeys } from '@/types/eventKeys'
+import type { LeafletEventKeys, EventHandlerFn, EmitterEvents } from '@/types/eventKeys'
 import {
   markerClusterGroupProps,
   markerClusterGroupEvents,
@@ -19,7 +19,7 @@ const { render } = Functions.Layer
 
 export default {
   props: markerClusterGroupProps,
-  emits: ['ready', ...markerClusterGroupEvents],
+  emits: ['ready', ...markerClusterGroupEvents] as string[],
   setup(props, context) {
     const leafletObject = ref<MarkerClusterGroup>()
     const ready = ref(false)
@@ -31,11 +31,10 @@ export default {
     onMounted(async () => {
       const { markerClusterGroup } = WINDOW_OR_GLOBAL.L
       leafletObject.value = markRaw(markerClusterGroup(options))
-
       const emitter =
-        (e: LeafletEventKeys[number]) =>
-        (...args: any) =>
-          context.emit(e, args)
+        (key: LeafletEventKeys[number]): EventHandlerFn =>
+        (e: EmitterEvents) =>
+          context.emit(key, e)
 
       const remapEvents = (): LeafletEventHandlerFnMap => {
         const listeners: LeafletEventHandlerFnMap = {}
