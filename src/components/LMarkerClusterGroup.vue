@@ -6,8 +6,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import { InjectionKeys, Functions, Utilities } from '@vue-leaflet/vue-leaflet'
 
-import type { LeafletEventKeys } from '@/functions/markerClusterGroup'
-
+import type { LeafletEventKeys } from '@/types/eventKeys'
 import {
   markerClusterGroupProps,
   markerClusterGroupEvents,
@@ -20,7 +19,7 @@ const { render } = Functions.Layer
 
 export default {
   props: markerClusterGroupProps,
-  emits: markerClusterGroupEvents,
+  emits: ['ready', ...markerClusterGroupEvents],
   setup(props, context) {
     const leafletObject = ref<MarkerClusterGroup>()
     const ready = ref(false)
@@ -41,7 +40,6 @@ export default {
       const remapEvents = (): LeafletEventHandlerFnMap => {
         const listeners: LeafletEventHandlerFnMap = {}
         for (const event of markerClusterGroupEvents) {
-          // @ts-ignore not all available event keys are properly typed in leaflet.markercluster
           listeners[event] = emitter(event)
         }
 

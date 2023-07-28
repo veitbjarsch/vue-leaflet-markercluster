@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- added vuetify for styling the demo pages
+- added demo page for props and events
+- made events reactive and added support for event modifiers
+
+### Changed
+
+- changed alpha version hint in readme to beta
+
 ### Fixed
 
 - fixed spelling in README and markerClusterGroup
