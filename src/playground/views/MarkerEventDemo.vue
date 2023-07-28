@@ -64,6 +64,7 @@ const logger = (type: string) => {
 const eventHandler = computed(() => {
   const events = {}
   activeEvents.value.forEach((key) => {
+    // @ts-ignore
     events[key] = () => logger(key)
   })
   return events
