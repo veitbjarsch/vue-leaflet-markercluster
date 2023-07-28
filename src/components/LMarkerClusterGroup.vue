@@ -6,7 +6,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import { InjectionKeys, Functions, Utilities } from '@vue-leaflet/vue-leaflet'
 
-import type { LeafletEventKeys, EventHandlerFn, EmitterEvents } from '@/types/eventKeys'
+import type { LeafletEventKeys, EventHandlerFn, EmitterEvents } from '@/types/markercluster'
 import {
   markerClusterGroupProps,
   markerClusterGroupEvents,
