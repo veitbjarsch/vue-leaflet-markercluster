@@ -1,7 +1,7 @@
 import type { Ref, SetupContext, ExtractPropTypes } from 'vue'
-import type { MarkerClusterGroup, Layer } from 'leaflet'
+import type { MarkerClusterGroup, Layer, Point } from 'leaflet'
 import type { ILayerDefinition } from '@vue-leaflet/vue-leaflet/dist/src/types/interfaces/ILayerDefinition.d.ts'
-
+import type { LeafletEventKeys } from '@/types/markercluster'
 import { provide } from 'vue'
 import { Functions, Utilities, InjectionKeys } from '@vue-leaflet/vue-leaflet'
 import { debounce } from './utils'
@@ -9,6 +9,28 @@ import { debounce } from './utils'
 const { featureGroupProps, setupFeatureGroup } = Functions.FeatureGroup
 const { AddLayerInjection, RemoveLayerInjection } = InjectionKeys
 const { propsToLeafletOptions } = Utilities
+
+const featureGroupEvents = [
+  'layeradd',
+  'layerremove',
+  'click',
+  'dblclick',
+  'mousedown',
+  'mouseup',
+  'mouseover',
+  'mouseout',
+  'contextmenu'
+] as const
+
+export const markerClusterGroupEvents: LeafletEventKeys = [
+  ...featureGroupEvents,
+  'clusterclick',
+  'clustermouseover',
+  'clustermouseout',
+  'animationend',
+  'spiderfied',
+  'unspiderfied'
+]
 
 export const markerClusterGroupProps = {
   ...featureGroupProps,
@@ -233,6 +255,92 @@ export const setupMarkerClusterGroup = (
 
       layersToRemove.push(layer.leafletObject)
       _removeLayers()
+    },
+    setMaxClusterRadius() {
+      // we would need to regenerate the clusters to change this value
+      throw new Error("Max cluster radius can't be set dynamically")
+    },
+    setClusterPane() {
+      // we would need to regenerate the clusters to change this value
+      throw new Error("Cluster pane can't be set dynamically")
+    },
+    setSpiderfyOnEveryZoom(val: boolean) {
+      if (!leafletRef.value) return
+      leafletRef.value._unbindEvents()
+      leafletRef.value.options.spiderfyOnEveryZoom = val
+      leafletRef.value._bindEvents()
+    },
+    setSpiderfyOnMaxZoom(val: boolean) {
+      if (!leafletRef.value) return
+      leafletRef.value._unbindEvents()
+      leafletRef.value.options.spiderfyOnMaxZoom = val
+      leafletRef.value._bindEvents()
+    },
+    setShowCoverageOnHover(val: boolean) {
+      if (!leafletRef.value) return
+      leafletRef.value._unbindEvents()
+      leafletRef.value.options.showCoverageOnHover = val
+      leafletRef.value._bindEvents()
+    },
+    setZoomToBoundsOnClick(val: boolean) {
+      if (!leafletRef.value) return
+      leafletRef.value._unbindEvents()
+      leafletRef.value.options.zoomToBoundsOnClick = val
+      leafletRef.value._bindEvents()
+    },
+    setSingleMarkerMode() {
+      // we would need to regenerate the clusters to change this value
+      throw new Error("Single marker mode can't be set dynamically")
+    },
+    setDisableClusteringAtZoom() {
+      // we would need to regenerate the clusters to change this value
+      throw new Error("Disable Clustering at zoom can't be set dynamically")
+    },
+    setRemoveOutsideVisibleBounds(val: boolean) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.removeOutsideVisibleBounds = val
+    },
+    setAnimate() {
+      // we would need to regenerate the clusters to change this value
+      throw new Error("Animate can't be set dynamically")
+    },
+    setAnimateAddingMarkers(val: boolean) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.animateAddingMarkers = val
+    },
+    setSpiderfyShapePositions(val: (count: number, centerPoint: Point) => Point[]) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.spiderfyShapePositions = val
+    },
+    setSpiderfyDistanceMultiplier(val: number) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.spiderfyDistanceMultiplier = val
+    },
+    setSpiderLegPolylineOptions(val: object) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.spiderLegPolylineOptions = val
+    },
+    setChunkedLoading(val: boolean) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.chunkedLoading = val
+    },
+    setChunkInterval(val: number) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.chunkInterval = val
+    },
+    setChunkDelay(val: number) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.chunkDelay = val
+    },
+    setChunkProgress(
+      val: (processedMarkers: number, totalMarkers: number, elapsedTime: number) => void
+    ) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.chunkProgress = val
+    },
+    setPolygonOptions(val: object) {
+      if (!leafletRef.value) return
+      leafletRef.value.options.polygonOptions = val
     }
   }
 

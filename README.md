@@ -1,6 +1,6 @@
 # vue-leaflet-markercluster
 
-:warning: This package is currently an alpha version. Breaking changes in upcoming minor versions are high likely! :warning:
+:warning: This package is currently a beta version. If you find any bugs or missing features please open an issue or feel free to extend the package and create a PR. :warning:
 
 This is an extension of the [vue-leaflet](https://github.com/vue-leaflet/vue-leaflet) package, which adds the functionality of using the leaflet [markercluster](https://github.com/Leaflet/Leaflet.markercluster) in an intuitive simple style.
 
