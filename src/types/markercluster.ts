@@ -17,6 +17,13 @@ declare module 'leaflet' {
      */
     clusterclick?: LeafletMouseEventHandlerFn | undefined
   }
+
+  interface MarkerClusterGroup {
+    options: MarkerClusterGroupOptions
+
+    _unbindEvents: () => void
+    _bindEvents: () => void
+  }
 }
 
 export type LeafletEventKeys = Array<keyof L.LeafletEventHandlerFnMap>

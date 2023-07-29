@@ -21,6 +21,7 @@
       label="maxClusterRadius"
       variant="underlined"
       :hide-details="true"
+      disabled
       v-model="props.maxClusterRadius"
     ></v-text-field>
 
@@ -28,6 +29,7 @@
       label="clusterPane"
       variant="underlined"
       :hide-details="true"
+      disabled
       v-model="props.clusterPane"
     ></v-text-field>
 
@@ -45,12 +47,19 @@
       hide-details
     />
 
-    <v-switch label="singleMarkerMode" color="blue" v-model="props.singleMarkerMode" hide-details />
+    <v-switch
+      label="singleMarkerMode"
+      color="blue"
+      disabled
+      v-model="props.singleMarkerMode"
+      hide-details
+    />
 
     <v-text-field
       label="disableClusteringAtZoom"
       variant="underlined"
       :hide-details="true"
+      disabled
       v-model="props.disableClusteringAtZoom"
     ></v-text-field>
 
@@ -63,7 +72,7 @@
   </div>
   <h2>Animation</h2>
   <div class="marker-props__switch">
-    <v-switch label="animate" color="blue" v-model="props.animate" hide-details />
+    <v-switch label="animate" color="blue" disabled v-model="props.animate" hide-details />
 
     <v-switch
       label="animateAddingMarkers"
