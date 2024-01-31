@@ -7,7 +7,6 @@
         name="openstreetmap"
       />
       <l-marker-cluster-group :icon-create-function="drawRedCluster">
-        <!-- <l-marker-cluster-group> -->
         <l-marker :lat-lng="[50, 31.5]" />
         <l-marker :lat-lng="[50, 31.5]" />
         <l-marker :lat-lng="[50.1, 31.4]" />
@@ -17,7 +16,6 @@
         <l-marker :lat-lng="[50.1, 31.7]" />
       </l-marker-cluster-group>
       <l-marker-cluster-group :icon-create-function="drawBlueCluster">
-        <!-- <l-marker-cluster-group> -->
         <l-marker :lat-lng="[50, 30.5]" />
         <l-marker :lat-lng="[50.1, 30.4]" />
         <l-marker :lat-lng="[50.12, 30.4]" />
