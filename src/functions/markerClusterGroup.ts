@@ -1,5 +1,13 @@
 import type { Ref, SetupContext, ExtractPropTypes } from 'vue'
-import type { MarkerClusterGroup, Layer, Point } from 'leaflet'
+import type {
+  DivIcon,
+  Icon,
+  IconOptions,
+  MarkerCluster,
+  MarkerClusterGroup,
+  Layer,
+  Point
+} from 'leaflet'
 import type { ILayerDefinition } from '@vue-leaflet/vue-leaflet/dist/src/types/interfaces/ILayerDefinition.d.ts'
 import type { LeafletEventKeys } from '@/types/markercluster'
 import { provide } from 'vue'
@@ -198,6 +206,10 @@ export const markerClusterGroupProps = {
   polygonOptions: {
     type: Object,
     default: () => ({})
+  },
+  iconCreateFunction: {
+    type: Function,
+    default: null
   }
 } as const
 
@@ -341,6 +353,12 @@ export const setupMarkerClusterGroup = (
     setPolygonOptions(val: object) {
       if (!leafletRef.value) return
       leafletRef.value.options.polygonOptions = val
+    },
+    setIconCreateFunction(val: (cluster: MarkerCluster) => DivIcon | Icon<IconOptions>) {
+      if (!leafletRef.value) return
+      leafletRef.value._unbindEvents()
+      leafletRef.value.options.iconCreateFunction = val
+      leafletRef.value._bindEvents()
     }
   }
 

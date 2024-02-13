@@ -17,7 +17,8 @@ const routes = [
   { path: '/', component: () => import('./views/BasicMarkerDemo.vue') },
   { path: '/props-marker', component: () => import('./views/MarkerPropsDemo.vue') },
   { path: '/event-marker', component: () => import('./views/MarkerEventDemo.vue') },
-  { path: '/10000-marker', component: () => import('./views/MarkerDemo.10000.vue') }
+  { path: '/10000-marker', component: () => import('./views/MarkerDemo.10000.vue') },
+  { path: '/custom-marker', component: () => import('./views/CustomMarker.vue') }
 ]
 
 const router = createRouter({

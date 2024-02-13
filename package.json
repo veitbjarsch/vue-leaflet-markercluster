@@ -46,7 +46,7 @@
     "@tsconfig/node18": "^2.0.1",
     "@types/jsdom": "^21.1.1",
     "@types/leaflet": "^1.9.3",
-    "@types/leaflet.markercluster": "^1.5.1",
+    "@types/leaflet.markercluster": "^1.5.4",
     "@types/node": "^18.16.17",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue-leaflet/vue-leaflet": "^0.10.1",

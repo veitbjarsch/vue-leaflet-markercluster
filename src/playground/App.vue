@@ -6,6 +6,7 @@
         <v-list-item title="Marker props" to="/props-marker" />
         <v-list-item title="Marker events" to="/event-marker" />
         <v-list-item title="10.000 Marker" to="/10000-marker" />
+        <v-list-item title="Custom markers" to="/custom-marker" />
       </v-list>
     </div>
     <div class="map-wrapper">
