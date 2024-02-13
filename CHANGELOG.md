@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+- added [iconCreateFunction](https://github.com/Leaflet/Leaflet.markercluster/?tab=readme-ov-file#customising-the-clustered-markers) prop.
+
 ## 0.5.1 - 2023-09-08
 ### Fixed
 - added types key in package.json
