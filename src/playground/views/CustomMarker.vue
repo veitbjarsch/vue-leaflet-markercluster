@@ -32,15 +32,17 @@ import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet'
 import { LMarkerClusterGroup } from '../../components/index'
 import { point } from 'leaflet'
 import { divIcon } from 'leaflet'
-const drawBlueCluster = (cluster: any) => {
-  const icon = divIcon({
+
+import type { MarkerCluster } from 'leaflet'
+
+const drawBlueCluster = () => {
+  return divIcon({
     className: 'blue-cluster',
     iconSize: point(25, 25)
   })
-  return icon
 }
-const drawRedCluster = (cluster: any) => {
-  const html = `${cluster._childCount}`
+const drawRedCluster = (cluster: MarkerCluster) => {
+  const html = `${cluster.getChildCount()}`
   const icon = divIcon({
     className: 'red-cluster',
     html,
