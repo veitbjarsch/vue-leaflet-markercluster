@@ -49,7 +49,7 @@ export const markerClusterGroupProps = {
    * current map zoom and returns the maximum cluster radius in pixels.
    **/
   maxClusterRadius: {
-    type: Number,
+    type: [Number, Function],
     default: 80
   },
   /**
@@ -211,7 +211,7 @@ export const markerClusterGroupProps = {
     type: Function,
     default: null
   }
-} as const
+}
 
 export const setupMarkerClusterGroup = (
   props: ExtractPropTypes<typeof markerClusterGroupProps>,
