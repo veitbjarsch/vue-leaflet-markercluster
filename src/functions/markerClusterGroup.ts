@@ -211,7 +211,7 @@ export const markerClusterGroupProps = {
     type: Function,
     default: null
   }
-} as const
+}
 
 export const setupMarkerClusterGroup = (
   props: ExtractPropTypes<typeof markerClusterGroupProps>,
