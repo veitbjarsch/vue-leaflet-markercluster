@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- maxClusterRadius now accepts also functions as input value
+
 ## 0.6.0 - 2024-02-13
 ### Added
 - added [iconCreateFunction](https://github.com/Leaflet/Leaflet.markercluster/?tab=readme-ov-file#customising-the-clustered-markers) prop.
