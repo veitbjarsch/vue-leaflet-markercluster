@@ -14,14 +14,24 @@ This is an extension of the [vue-leaflet](https://github.com/vue-leaflet/vue-lea
 ## Installation
 
 ```
+yarn add leaflet.markercluster
 yarn add vue-leaflet-markercluster
 ```
 
 or
 
 ```
+npm i -D leaflet.markercluster
 npm i -D vue-leaflet-markercluster
 ```
+
+add the following lines to your main.css file:
+
+```
+@import 'leaflet.markercluster/dist/MarkerCluster.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+```
+
 
 ## Usage
 
