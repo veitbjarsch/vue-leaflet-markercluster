@@ -239,7 +239,7 @@ export const setupMarkerClusterGroup = (
         leafletRef.value?.addLayers(layersToAdd)
       }
       layersToAdd = []
-    catch (e) {
+    } catch (e) {
       console.error("Can't add layer(s)", e);
     }
   }, 0)
