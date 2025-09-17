@@ -1,7 +1,7 @@
 {
   "name": "vue-leaflet-markercluster",
   "author": "Veit Bjarsch",
-  "version": "0.6.2-beta.0",
+  "version": "0.6.3-beta.0",
   "description": "Leaflet markercluster components for Vue.js, based on leaflet.markercluster.",
   "keywords": [
     "vue",
