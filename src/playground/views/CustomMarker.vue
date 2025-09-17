@@ -59,7 +59,7 @@ const drawRedCluster = (cluster: MarkerCluster) => {
 }
 
 .red-cluster {
-  background: rgb(185,26,0,0.333);
+  background: rgb(185, 26, 0, 0.333);
   display: flex;
   align-items: center;
   justify-content: center;

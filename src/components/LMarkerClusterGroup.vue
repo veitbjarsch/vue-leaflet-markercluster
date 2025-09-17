@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { MarkerClusterGroup, LeafletEventHandlerFnMap } from 'leaflet'
-import { ref, markRaw, onMounted, onBeforeUnmount nextTick } from 'vue'
+import { ref, markRaw, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import 'leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'

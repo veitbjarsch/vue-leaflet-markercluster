@@ -243,7 +243,7 @@ export const setupMarkerClusterGroup = (
       }
       layersToAdd = []
     } catch (e) {
-      console.error("Can't add layer(s)", e);
+      console.error("Can't add layer(s)", e)
     }
   }, 0)
 
@@ -257,7 +257,7 @@ export const setupMarkerClusterGroup = (
       }
       layersToRemove = []
     } catch (e) {
-      console.error("Can't remove layer(s)", e);
+      console.error("Can't remove layer(s)", e)
     }
   }, 0)
 
