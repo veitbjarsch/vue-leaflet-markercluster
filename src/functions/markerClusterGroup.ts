@@ -232,22 +232,30 @@ export const setupMarkerClusterGroup = (
 
   let layersToAdd = [] as Array<any>
   const _addLayers = debounce(() => {
-    if (layersToAdd.length === 1) {
-      leafletRef.value?.addLayer(layersToAdd[0])
-    } else {
-      leafletRef.value?.addLayers(layersToAdd)
+    try {
+      if (layersToAdd.length === 1) {
+        leafletRef.value?.addLayer(layersToAdd[0])
+      } else {
+        leafletRef.value?.addLayers(layersToAdd)
+      }
+      layersToAdd = []
+    catch (e) {
+      console.error("Can't add layer(s)", e);
     }
-    layersToAdd = []
   }, 0)
 
   let layersToRemove = [] as Array<any>
   const _removeLayers = debounce(() => {
-    if (layersToRemove.length === 1) {
-      leafletRef.value?.removeLayer(layersToRemove[0])
-    } else {
-      leafletRef.value?.removeLayers(layersToRemove)
+    try {
+      if (layersToRemove.length === 1) {
+        leafletRef.value?.removeLayer(layersToRemove[0])
+      } else {
+        leafletRef.value?.removeLayers(layersToRemove)
+      }
+      layersToRemove = []
+    } catch (e) {
+      console.error("Can't remove layer(s)", e);
     }
-    layersToRemove = []
   }, 0)
 
   const methods = {
