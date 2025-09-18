@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { MarkerClusterGroup, LeafletEventHandlerFnMap } from 'leaflet'
-import { ref, markRaw, onMounted, nextTick } from 'vue'
+import { ref, markRaw, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import 'leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
@@ -10,7 +10,8 @@ import type { LeafletEventKeys, EventHandlerFn, EmitterEvents } from '@/types/ma
 import {
   markerClusterGroupProps,
   markerClusterGroupEvents,
-  setupMarkerClusterGroup
+  setupMarkerClusterGroup,
+  isUnmounting
 } from '@/functions/markerClusterGroup'
 
 const { propsBinder, assertInject, WINDOW_OR_GLOBAL } = Utilities
@@ -29,6 +30,7 @@ export default {
     const { methods, options } = setupMarkerClusterGroup(props, leafletObject, context)
 
     onMounted(async () => {
+      isUnmounting.value = false;
       const { markerClusterGroup } = WINDOW_OR_GLOBAL.L
       leafletObject.value = markRaw(markerClusterGroup(options))
       const emitter =
@@ -54,6 +56,11 @@ export default {
       })
       ready.value = true
       nextTick(() => context.emit('ready', leafletObject.value))
+    })
+
+    onBeforeUnmount(() => {
+      isUnmounting.value = true;
+      leafletObject.value?.off()
     })
 
     return { ready, leafletObject }

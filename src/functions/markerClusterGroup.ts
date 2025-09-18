@@ -10,7 +10,7 @@ import type {
 } from 'leaflet'
 import type { ILayerDefinition } from '@vue-leaflet/vue-leaflet/dist/src/types/interfaces/ILayerDefinition.d.ts'
 import type { LeafletEventKeys } from '@/types/markercluster'
-import { provide } from 'vue'
+import { provide, ref } from 'vue'
 import { Functions, Utilities, InjectionKeys } from '@vue-leaflet/vue-leaflet'
 import { debounce } from './utils'
 
@@ -29,6 +29,9 @@ const featureGroupEvents = [
   'mouseout',
   'contextmenu'
 ] as const
+
+// Vue-Leaflet is throwing an error if we unspiderfy during unmounting
+export const isUnmounting = ref(false)
 
 export const markerClusterGroupEvents: LeafletEventKeys = [
   ...featureGroupEvents,
@@ -240,7 +243,7 @@ export const setupMarkerClusterGroup = (
       }
       layersToAdd = []
     } catch (e) {
-      console.error("Can't add layer(s)", e);
+      console.error("Can't add layer(s)", e)
     }
   }, 0)
 
@@ -254,7 +257,7 @@ export const setupMarkerClusterGroup = (
       }
       layersToRemove = []
     } catch (e) {
-      console.error("Can't remove layer(s)", e);
+      console.error("Can't remove layer(s)", e)
     }
   }, 0)
 
@@ -269,6 +272,8 @@ export const setupMarkerClusterGroup = (
       _addLayers()
     },
     removeLayer(layer: ILayerDefinition<Layer>) {
+      if (isUnmounting.value) return
+
       if (props.animateAddingMarkers) {
         return leafletRef.value?.removeLayer(layer.leafletObject)
       }
